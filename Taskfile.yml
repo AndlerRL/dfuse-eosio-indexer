@@ -1,0 +1,33 @@
+version: '3'
+
+dotenv: ['.env']
+silent: true
+
+tasks:
+  build:
+    cmds:
+      - docker build -t dfuse-eosio-indexer:local .
+
+  run:
+    cmds:
+      - docker run --name dfuse-eosio-indexer --env-file .env -p 3307:3307 -d dfuse-eosio-indexer:local
+
+  id:
+    cmds:
+      - docker ps -aqf "name=^dfuse-eosio-indexer$"
+
+  stop:
+    cmds:
+      - docker stop dfuse-eosio-indexer
+
+  start:
+    cmds:
+      - docker start dfuse-eosio-indexer
+
+  restart:
+    cmds:
+      - docker restart dfuse-eosio-indexer
+
+  kill:
+    cmds:
+      - docker kill dfuse-eosio-indexer
